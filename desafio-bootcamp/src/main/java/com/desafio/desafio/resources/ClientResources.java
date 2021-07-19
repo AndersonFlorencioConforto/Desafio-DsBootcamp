@@ -21,8 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.desafio.desafio.dto.ClientDTO;
 import com.desafio.desafio.services.ClientService;
 
-import javassist.NotFoundException;
-
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientResources {
@@ -30,7 +28,7 @@ public class ClientResources {
 	@Autowired private ClientService clientService;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ClientDTO> findById(@PathVariable Long id) throws NotFoundException{
+	public ResponseEntity<ClientDTO> findById(@PathVariable Long id){
 		ClientDTO dto = clientService.findById(id);
 		return ResponseEntity.ok().body(dto);
 		
@@ -57,13 +55,13 @@ public class ClientResources {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClientDTO> update (@PathVariable Long id,@RequestBody ClientDTO obj) throws NotFoundException{
+	public ResponseEntity<ClientDTO> update (@PathVariable Long id,@RequestBody ClientDTO obj){
 		obj = clientService.update(obj,id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception{
+	public ResponseEntity<Void> delete(@PathVariable Long id){
 		clientService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
